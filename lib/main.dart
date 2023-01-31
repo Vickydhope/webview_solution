@@ -63,7 +63,6 @@ class _WebViewAppState extends State<WebViewApp> {
         onPageStarted: (url) {
           setState(() {
             loadingPercentage = 0;
-
           });
         },
         onProgress: (progress) {
@@ -76,14 +75,15 @@ class _WebViewAppState extends State<WebViewApp> {
             loadingPercentage = 100;
           });
         },
-      ))..addJavaScriptChannel(
-      "messageHandler",
-      onMessageReceived: (message) {
-        if (message.message == "Close") Navigator.of(context).pop();
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(message.message)));
-      },
-    );
+      ))
+      ..addJavaScriptChannel(
+        "messageHandler",
+        onMessageReceived: (message) {
+          if (message.message == "Close") Navigator.of(context).pop();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(message.message)));
+        },
+      );
   }
 
   @override
